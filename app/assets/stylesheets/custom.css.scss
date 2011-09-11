@@ -1,0 +1,98 @@
+.container {
+  width: 710px;
+}
+
+body {
+  background: #51523E;
+}
+
+header {
+  padding-top: 20px;
+}
+
+section {
+  margin-top: 2em;
+  font-size: 120%;
+  padding: 20px;
+  background: #fff;
+
+  h1 {
+    font-size: 200%;
+  }
+}
+
+footer {
+  text-align: center;
+  margin-top: 10px;
+  width: 710px;
+  margin-left: auto;
+  margin-right: auto;
+
+  nav {
+    float: none;
+  }
+}
+
+/* links */
+
+a {
+  color: #09c;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #069;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #069;
+}
+
+/* navigation */
+nav {
+  float: right;
+  background-color: white;
+  padding: 0 0.7em;
+  white-space: nowrap;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style-type: none;
+      display: inline-block;
+      padding: 0.2em 0;
+
+      a {
+        padding: 0 5px;
+        font-weight: bold;
+        
+        &:visited { color: #09c; }
+        &:hover { text-decoration: underline; }
+      }
+    }
+  }
+}
+
+/* round corners */
+.round {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* signup button */
+a.signup_button {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  width: 190px;
+  color: #fff;
+  background: #006400;
+  font-size: 150%;
+  font-weight: bold;
+  padding: 20px;
+}
