@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:success] = 'Welcome to NoteHive!'
-      redirect_to @user
+      redirect_to root_path
     else
       @title = 'Sign up'
       render 'new'

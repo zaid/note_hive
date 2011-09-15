@@ -53,9 +53,9 @@ describe UsersController do
         end.should change(User, :count).by(1)
       end
 
-      it "should redirect to the user show page" do
+      it "should redirect to the home page" do
         post :create, :user => @attr
-        response.should redirect_to(user_path(assigns(:user)))
+        response.should redirect_to(root_path)
       end
 
       it "should have a welcome message" do

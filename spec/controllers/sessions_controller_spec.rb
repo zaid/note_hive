@@ -33,5 +33,37 @@ describe SessionsController do
         flash.now[:error].should =~ /invalid/i
       end
     end
+
+    describe "with valid email and password" do
+      
+      before(:each) do
+        @user = Factory(:user)
+        @attr = { :email => @user.email, :password => @user.password }
+      end
+
+      it "should sign the user in" do
+        post :create, :email => @attr[:email], :password => @attr[:password]
+        controller.should be_signed_in
+      end
+
+      it "should redirect to the home page" do
+        post :create, :email => @attr[:email], :password => @attr[:password]
+        response.should redirect_to(root_path)
+      end
+    end
+  end
+
+  describe "DELETE 'destroy'" do
+    
+    before(:each) do
+      user = Factory(:user)
+      post :create, :email => user.email, :password => user.password
+    end
+
+    it "should sign a user out" do
+      delete :destroy
+      controller.should_not be_signed_in
+      response.should redirect_to(root_path)
+    end
   end
 end
