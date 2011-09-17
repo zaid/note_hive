@@ -53,6 +53,11 @@ describe UsersController do
         end.should change(User, :count).by(1)
       end
 
+      it "should log the user in" do
+        post :create, :user => @attr
+        controller.should be_signed_in
+      end
+
       it "should redirect to the home page" do
         post :create, :user => @attr
         response.should redirect_to(root_path)
