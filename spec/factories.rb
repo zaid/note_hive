@@ -5,6 +5,10 @@ Factory.define :user do |user|
   user.password_confirmation 'foobar'
 end
 
+Factory.sequence :email do |n|
+  "user-#{n}@example.ca"
+end
+
 Factory.define :notebook do |notebook|
   notebook.title            'Foo bar'
   notebook.association      :user
