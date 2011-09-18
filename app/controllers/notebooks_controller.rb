@@ -16,6 +16,9 @@ class NotebooksController < ApplicationController
   end
 
   def destroy
+    @notebook = Notebook.find(params[:id])
+    @notebook.destroy
+    redirect_to notebooks_path
   end
 
 end

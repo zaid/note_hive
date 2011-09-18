@@ -92,6 +92,26 @@ describe NotebooksController do
     end
   end
 
+  describe "DELETE 'destroy'" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      @notebook = Factory(:notebook, :user => @user)
+      session[:user_id] = @user.id
+    end
+
+    it "should destroy the notebook" do
+      lambda do
+        delete :destroy, :id => @notebook
+      end.should change(Notebook, :count).by(-1)
+    end
+
+    it "should redirect to the home page" do
+      delete :destroy, :id => @notebook
+      response.should redirect_to(notebooks_path)
+    end
+  end
+
   describe "access control" do
     
     it "should deny access to 'index'" do
