@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
   has_many :notebooks, :dependent => :destroy
+  has_many :notes, :dependent => :destroy
 
   has_secure_password
 

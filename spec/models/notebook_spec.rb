@@ -27,6 +27,24 @@ describe Notebook do
     end
   end
 
+  describe "note associations" do
+    
+    before(:each) do
+      @note_attr = { :content => 'Foo bar' }
+      @notebook = Factory(:notebook, :user => @user)
+      @note = @notebook.notes.build(@note_attr)
+    end
+
+    it "should have a notes attribute" do
+      @notebook.should respond_to(:notes)
+    end
+
+    it "should have the right associated note" do
+      @notebook.notes.first.id.should == @note.id
+      @notebook.notes.first.should == @note
+    end
+  end
+
   describe "validations" do
     
     it "should require a user id" do
