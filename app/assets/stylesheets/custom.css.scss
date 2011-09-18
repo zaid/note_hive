@@ -141,3 +141,17 @@ a.signup_button {
     list-style: square;
   }
 }
+
+table.notebooks {
+  margin-top: 1em;
+
+  tr {
+    height: 70px;
+
+    td.notebook {
+      border-top: 1px solid #ccc;
+      vertical-align: top;
+      padding-top: 10px;
+    }
+  }
+}

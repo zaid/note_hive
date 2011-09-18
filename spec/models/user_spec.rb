@@ -73,4 +73,21 @@ describe User do
       long_password_user.should_not be_valid
     end
   end
+
+  describe "notebook associations" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      @nb1 = Factory(:notebook, :user => @user)
+    end
+
+    it "should have a notebook attribute" do
+      @user.should respond_to(:notebooks)
+    end
+
+    it "should destroy associated notebooks" do
+      @user.destroy
+      Notebook.find_by_id(@nb1.id).should be_nil
+    end
+  end
 end

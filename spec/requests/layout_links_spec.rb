@@ -40,6 +40,11 @@ describe "LayoutLinks" do
       visit root_path
       response.should have_selector('a', :href => signin_path, :content => 'Sign in')
     end
+
+    it "should have a signup link on the home page" do
+      visit root_path
+      response.should have_selector('a', :href => signup_path, :content => 'Sign up')
+    end
   end
 
   describe "when signed in" do
@@ -60,6 +65,17 @@ describe "LayoutLinks" do
     it "should have a profile link" do
       visit root_path
       response.should have_selector('a', :href => user_path(@user), :content => 'Profile')
+    end
+
+    it "should have a notebooks link" do
+      visit root_path
+      response.should have_selector('a', :href => notebooks_path, :content => 'Notebooks')
+    end
+
+    it "should have a notebook creation form" do
+      visit root_path
+      response.should have_selector('label', :content => 'Title')
+      response.should have_selector('input', :id => 'notebook_title')
     end
   end
 end
