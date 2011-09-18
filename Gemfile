@@ -7,6 +7,7 @@ gem 'rails', '3.1.0'
 
 gem 'sqlite3'
 gem 'kaminari'
+gem 'rake', '0.8.7'
 
 group :development do
   gem 'rspec-rails', '2.6.1'
