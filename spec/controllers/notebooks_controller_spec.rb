@@ -9,6 +9,11 @@ describe NotebooksController do
       @user = Factory(:user)
     end
 
+
+    before(:each) do
+      session[:user_id] = @user.id
+    end
+
     it "should be successful" do
       get 'index'
       response.should be_success
@@ -43,4 +48,65 @@ describe NotebooksController do
     end
   end
 
+  describe "POST 'create'" do
+
+    before(:each) do
+      @user = Factory(:user)
+      session[:user_id] = @user.id
+    end
+
+    describe "failure" do
+
+      before(:each) do
+        @attr = { :title => '' }
+      end
+      
+      it "should not create a notebook" do
+        lambda do
+          post :create, :notebook => @attr
+        end.should_not change(Notebook, :count)
+      end 
+
+      it "should render the new template" do
+        post :create, :notebook => @attr
+        response.should render_template('notebooks/new')
+      end
+    end
+
+    describe "success" do
+      
+      before(:each) do
+        @attr = { :title => 'Test notebook' }
+      end
+
+      it "should create a new instance given valid attributes" do
+        lambda do
+          post :create, :notebook => @attr
+        end.should change(Notebook, :count).by(1)
+      end
+
+      it "should redirect to the notebook listing page" do
+        post :create, :notebook => @attr
+        response.should redirect_to(notebooks_path)
+      end
+    end
+  end
+
+  describe "access control" do
+    
+    it "should deny access to 'index'" do
+      get :index
+      response.should redirect_to(signin_path)
+    end
+
+    it "should deny access to 'create'" do
+      post :create
+      response.should redirect_to(signin_path)
+    end
+
+    it "should deny access to 'destroy'" do
+      delete :destroy, :id => 1
+      response.should redirect_to(signin_path)
+    end
+  end
 end

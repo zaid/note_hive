@@ -1,3 +1,13 @@
-<h2>NoteHive</h2>
-<p>This is the home page for the NoteHive application.</p>
-<%= link_to 'Sign up now!', signup_path, :class => 'signup_button round' %>
+<% if signed_in? %>
+  <table class='front' summary='For signed-in users'>
+    <tr>
+      <td class='main'>
+        <%= render 'notebooks/notebook_form' %>
+      </td>
+    </tr>
+  </table>
+<% else %>
+  <h2>NoteHive</h2>
+  <p>This is the home page for the NoteHive application.</p>
+  <%= link_to 'Sign up now!', signup_path, :class => 'signup_button round' %>
+<% end %>
