@@ -74,7 +74,6 @@ describe "LayoutLinks" do
 
     it "should have a notebook creation form" do
       visit root_path
-      response.should have_selector('label', :content => 'Title')
       response.should have_selector('input', :id => 'notebook_title')
     end
   end
