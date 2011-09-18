@@ -2,11 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
 
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
-gem 'kaminari'
-
 group :production do
   gem 'pg'
 end
@@ -22,6 +17,7 @@ group :test do
   gem 'webrat', '0.7.1'
   gem 'spork', '0.9.0.rc8'
   gem 'factory_girl_rails', '1.0.0'
+  gem 'sqlite3'
 end
 
 # Gems used only for assets and not required
@@ -33,6 +29,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'kaminari'
 
 # Use unicorn as the web server
 # gem 'unicorn'
