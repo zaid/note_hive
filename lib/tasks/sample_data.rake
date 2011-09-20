@@ -16,7 +16,7 @@ namespace :db do
                    :password_confirmation => password)
     end
     User.all(:limit => 50).each do |user|
-      user.notebooks.create!(:title => Faker::Lorem.sentence(5))
+      user.notebooks.create!(:title => Faker::Lorem.sentence(2))
     end
   end
 end
