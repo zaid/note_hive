@@ -12,7 +12,7 @@ class NotebooksController < ApplicationController
   end
 
   def index
-    @notebooks = Notebook.page(params[:page]).per(5)
+    @notebooks = current_user.notebooks.page(params[:page]).per(8)
   end
 
   def destroy
