@@ -90,4 +90,17 @@ describe User do
       Notebook.find_by_id(@nb1.id).should be_nil
     end
   end
+
+  describe "note associations" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      @notebook = Factory(:notebook, :user => @user)
+      @note = Factory(:note, :user => @user, :notebook => @notebook)
+    end
+
+    it "should have a notebook attribute" do
+      @user.should respond_to(:notes)
+    end
+  end
 end

@@ -1,0 +1,9 @@
+<%= form_for [notebook, note] do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <div class='field'>
+    <%= f.text_area :content, :class => 'note_content_textarea' %>
+  </div>
+  <div class='actions'>
+    <%= f.submit %>
+  </div>
+<% end %>

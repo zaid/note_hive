@@ -146,12 +146,63 @@ table.notebooks {
   margin-top: 1em;
 
   tr {
-    height: 70px;
+    td {
+      border-top: 1px solid #ccc;
+    }
 
     td.notebook {
-      border-top: 1px solid #ccc;
       vertical-align: top;
       padding-top: 10px;
     }
   }
+}
+
+table.notes {
+  margin-top: 1em;
+
+  tr {
+    td {
+      border-top: 1px solid #ccc;
+    }
+
+    td.note {
+      vertical-align: top;
+      padding-top: 10px;
+    }
+  }
+}
+
+.note_navigation {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+  a {
+    padding-left: 0px;
+  }
+
+  .back {
+    text-align: left;
+  }
+
+  .edit {
+    text-align:right;
+  }
+
+  td {
+    height: 5px;
+    padding: 0px 0px 0px 0px;
+  }
+}
+
+.note {
+  float: none;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+  text-align: left;
+}
+
+.note_content_textarea {
+  width: 100%;
 }

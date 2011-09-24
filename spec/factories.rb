@@ -13,3 +13,9 @@ Factory.define :notebook do |notebook|
   notebook.title            'Foo bar'
   notebook.association      :user
 end
+
+Factory.define :note do |note|
+  note.content              'Foo bar'
+  note.association          :user
+  note.association          :notebook
+end

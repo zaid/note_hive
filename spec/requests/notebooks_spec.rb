@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'faker'
 
 describe "Notebooks" do
   
@@ -34,6 +35,37 @@ describe "Notebooks" do
           click_button
           response.should have_selector('span.content', :content => 'Foo bar')
         end.should change(Notebook, :count).by(1)
+      end
+    end
+  end
+
+  describe "listing" do
+
+    before(:each) do
+      @notebooks = []
+      5.times do
+        @notebooks << Factory(:notebook, :user => @user, :title => Faker::Lorem.sentence(2))
+      end
+    end
+
+    it "should show a notebook listing" do
+      visit notebooks_path
+      @notebooks.each do |notebook|
+        response.should have_selector('span.content', :content => notebook.title)
+      end
+    end
+
+    it "should have a delete link for each notebook" do
+      visit notebooks_path
+      @notebooks.each do |notebook|
+        response.should have_selector('a', :href => notebook_path(notebook), :content => 'delete')
+      end
+    end
+
+    it "should have a show link for each notebook" do
+      visit notebooks_path
+      @notebooks.each do |notebook|
+        response.should have_selector('a', :href => notebook_path(notebook), :content => 'show')
       end
     end
   end

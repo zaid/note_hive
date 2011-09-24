@@ -1,0 +1,12 @@
+<tr>
+  <td class='note'>
+    <span class='content'><%= note.content %></span>
+  </td>
+  <td>
+    <%= link_to 'show', notebook_note_path(notebook, note) %>
+  </td>
+  <td>
+    <%= link_to 'delete', notebook_note_path(notebook, note), :method => :delete,
+                                :confirm => 'You sure?' %>
+  </td>
+</tr>
