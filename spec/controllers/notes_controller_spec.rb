@@ -40,4 +40,23 @@ describe NotesController do
     end
   end
 
+  describe "DELETE 'destroy'" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      @notebook = Factory(:notebook, :user => @user)
+      @note = Factory(:note, :notebook => @notebook, :user => @user)
+    end
+
+    it "should destroy the note" do
+      lambda do
+        delete :destroy, :id => @note
+      end.should change(Note, :count).by(-1)
+    end
+
+    it "should redirect to the notes listing page" do
+      delete :destroy, :id => @note
+      response.should redirect_to notebook_path(@notebook)
+    end
+  end
 end
