@@ -158,14 +158,14 @@ describe NotebooksController do
       note1 = Factory(:note, :notebook => @notebook1, :user => @user, :content => 'Foo bar')
       note2 = Factory(:note, :notebook => @notebook1, :user => @user, :content => 'Bar foo')
 
-      get :show, :id => @notebook1
+      get :show, :notebook_id => @notebook, :id => @notebook1
       response.should have_selector('span.content', :content => note1.content)
       response.should have_selector('span.content', :content => note2.content)
     end
 
     it "should have a 'new note' link" do
-      get :show, :id => @notebook1
-      response.should have_selector('a', :href => new_note_path, :content => 'new note')
+      get :show, :notebook_id => @notebook, :id => @notebook1
+      response.should have_selector('a', :href => new_notebook_note_path(@notebook1), :content => 'new note')
     end
   end
 end
