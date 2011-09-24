@@ -1,7 +1,5 @@
-<table class='note_navigation'>
-  <tr>
-    <td class='back'><%= link_to 'back to notebook', notebook_path(@note.notebook) %></td>
-    <td class='edit'><%= link_to 'edit', edit_notebook_note_path(@notebook, @note) %></td>
-  </tr>
-</table>
+<div class='note_navigation'>
+  <span class='left'><%= link_to 'back to notebook', notebook_path(@note.notebook) %></span>
+  <span class='right'><%= link_to 'edit', edit_notebook_note_path(@notebook, @note) %></span>
+</div>
 <div class='note'><%= @note.content %></div>

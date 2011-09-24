@@ -20,6 +20,23 @@ class NotebooksController < ApplicationController
     @notes = @notebook.notes # .page(params[:page]).per(8)
   end
 
+  def edit
+    @title = 'Edit notebook'
+    @notebook = current_user.notebooks.find(params[:id])
+  end
+
+  def update
+    @notebook = current_user.notebooks.find(params[:id])
+
+    if @notebook.update_attributes(params[:notebook])
+      flash[:success] = 'Notebook updated'
+      redirect_to @notebook
+    else
+      @title = 'Edit notebook'
+      render 'notebooks/edit'
+    end
+  end
+
   def destroy
     @notebook = Notebook.find(params[:id])
     @notebook.destroy

@@ -167,5 +167,77 @@ describe NotebooksController do
       get :show, :notebook_id => @notebook, :id => @notebook1
       response.should have_selector('a', :href => new_notebook_note_path(@notebook1), :content => 'new note')
     end
+
+    it "should have an 'edit' link" do
+      get :show, :id => @notebook1
+      response.should have_selector('a', :href => edit_notebook_path(@notebook1), :content => 'edit notebook')
+    end
+  end
+
+  describe "GET 'edit'" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      @notebook = Factory(:notebook, :user => @user)
+      session[:user_id] = @user.id
+    end
+
+    it "should be successful" do
+      get :edit, :id => @notebook
+    end
+
+    it "should have the right title" do
+      get :edit, :id => @notebook
+      response.should have_selector('title', :content => 'Edit notebook')
+    end
+  end
+
+  describe "PUT 'update'" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      @notebook = Factory(:notebook, :user => @user)
+      session[:user_id] = @user.id
+    end
+
+    describe "failure" do
+      
+      before(:each) do
+        @attr = { :title => '' }
+      end
+
+      it "should render the edit page" do
+        put :update, :id => @notebook, :notebook => @attr
+        response.should render_template('notebooks/edit')
+      end
+
+      it "should have the right title" do
+        put :update, :id => @notebook, :notebook => @attr
+        response.should have_selector('title', :content => 'Edit notebook')
+      end
+    end
+
+    describe "success" do
+      
+      before(:each) do
+        @attr = { :title => 'New updated title!' }
+      end
+
+      it "should update the notebook's title" do
+        put :update, :id => @notebook, :notebook => @attr
+        @notebook.reload
+        @notebook.title.should == @attr[:title]
+      end
+
+      it "should redirect to the note listing page" do
+        put :update, :id => @notebook, :notebook => @attr
+        response.should redirect_to notebook_path(@notebook)
+      end
+      
+      it "should show a flash message" do
+        put :update, :id => @notebook, :notebook => @attr
+        flash[:success].should =~ /notebook updated/i
+      end
+    end
   end
 end
