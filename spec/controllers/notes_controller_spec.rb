@@ -3,26 +3,13 @@ require 'spec_helper'
 describe NotesController do
   render_views
 
-  before(:each) do
-    @user = Factory(:user)
-    @notebook = Factory(:notebook, :user => @user)
-    session[:user_id] = @user.id
-  end
-
-  describe "GET 'index'" do
-    
-    it "should be successful" do
-      get :index, :notebook_id => @notebook
-      response.should be_success
-    end
-  end
-
   describe "GET 'show'" do
 
     before(:each) do
       @user = Factory(:user)
       @notebook = Factory(:notebook, :user => @user)
       @note = Factory(:note, :notebook => @notebook, :user => @user)
+      session[:user_id] = @user.id
     end
 
     it "should be successful" do
@@ -52,6 +39,7 @@ describe NotesController do
       @user = Factory(:user)
       @notebook = Factory(:notebook, :user => @user)
       @note = Factory(:note, :notebook => @notebook, :user => @user)
+      session[:user_id ] = @user.id
     end
 
     it "should destroy the note" do
@@ -63,6 +51,25 @@ describe NotesController do
     it "should redirect to the notes listing page" do
       delete :destroy, :notebook_id => @notebook, :id => @note
       response.should redirect_to notebook_path(@notebook)
+    end
+  end
+
+  describe "access control" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      @notebook = Factory(:notebook, :user => @user)
+      @note = Factory(:note, :notebook => @notebook, :user => @user)
+    end
+
+    it "should deny access to 'show'" do
+      get :show, :notebook_id => @notebook, :id => @note
+      response.should redirect_to(signin_path)
+    end
+
+    it "should deny access to 'destroy'" do
+      delete :destroy, :notebook_id => @notebook, :id => @note
+      response.should redirect_to(signin_path)
     end
   end
 end
