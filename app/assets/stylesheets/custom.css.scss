@@ -174,10 +174,31 @@ table.notes {
 
 .note_navigation {
   padding-left: 0px;
+  padding-right: 0px;
   margin-left: 0px;
-  float: none;
+  margin-right: 0px;
 
   a {
     padding-left: 0px;
   }
+
+  .back {
+    text-align: left;
+  }
+
+  .edit {
+    text-align:right;
+  }
+
+  td {
+    height: 5px;
+    padding: 0px 0px 0px 0px;
+  }
+}
+
+.note {
+  float: none;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+  text-align: left;
 }

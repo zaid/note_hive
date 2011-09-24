@@ -26,7 +26,7 @@ describe NotesController do
 
     it "should show the content of the note" do
       get :show, :id => @note
-      response.should have_selector('span.content', :content => @note.content)
+      response.should have_selector('div.note', :content => @note.content)
     end
 
     it "should have a 'back to notebook' link" do
