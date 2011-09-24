@@ -43,7 +43,6 @@ describe NotebooksController do
         response.should have_selector('a', :href => '/notebooks?page=2', :content => '2')
         response.should have_selector('a', :href => '/notebooks?page=3', :content => '3')
         response.should have_selector('a', :href => '/notebooks?page=4', :content => '4')
-        response.should have_selector('a', :href => '/notebooks?page=5', :content => '5')
       end
     end
   end
@@ -127,6 +126,46 @@ describe NotebooksController do
     it "should deny access to 'destroy'" do
       delete :destroy, :id => 1
       response.should redirect_to(signin_path)
+    end
+
+    it "should deny access to 'show'" do
+      get :show, :id => 1
+      response.should redirect_to(signin_path)
+    end
+  end
+
+  describe "GET 'show'" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      @notebook1 = Factory(:notebook, :user => @user, :title => 'Foo bar')
+      @notebook2 = Factory(:notebook, :user => @user, :title => 'Bar foo')
+      session[:user_id] = @user.id
+    end
+
+    it "should be successful" do
+      get :show, :id => @notebook1
+      response.should be_successful
+    end
+
+    it "should show the right notebook" do
+      get :show, :id => @notebook1
+      assigns(:notebook).id.should == @notebook1.id
+      assigns(:notebook).should == @notebook1
+    end
+
+    it "should show the notebook's notes" do
+      note1 = Factory(:note, :notebook => @notebook1, :user => @user, :content => 'Foo bar')
+      note2 = Factory(:note, :notebook => @notebook1, :user => @user, :content => 'Bar foo')
+
+      get :show, :id => @notebook1
+      response.should have_selector('span.content', :content => note1.content)
+      response.should have_selector('span.content', :content => note2.content)
+    end
+
+    it "should have a 'new note' link" do
+      get :show, :id => @notebook1
+      response.should have_selector('a', :href => new_note_path, :content => 'new note')
     end
   end
 end

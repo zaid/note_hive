@@ -3,6 +3,9 @@
     <span class='content'><%= notebook.title %></span>
   </td>
   <td>
+    <%= link_to 'show', notebook %>
+  </td>
+  <td>
     <%= link_to 'delete', notebook, :method => :delete, 
                                     :confirm => 'You sure?',
                                     :title => notebook.title %>

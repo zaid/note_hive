@@ -15,6 +15,11 @@ class NotebooksController < ApplicationController
     @notebooks = current_user.notebooks.page(params[:page]).per(8)
   end
 
+  def show
+    @notebook = current_user.notebooks.find(params[:id])
+    @notes = @notebook.notes # .page(params[:page]).per(8)
+  end
+
   def destroy
     @notebook = Notebook.find(params[:id])
     @notebook.destroy

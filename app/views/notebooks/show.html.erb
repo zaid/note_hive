@@ -1,0 +1,5 @@
+<h2><%= @notebook.title %></h2>
+<span><%= link_to 'new note', new_note_path %></span>
+<table class='notes' summary='User notes'>
+  <%= render @notes %>
+</table>

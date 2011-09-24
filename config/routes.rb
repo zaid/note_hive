@@ -1,4 +1,5 @@
 NoteHive::Application.routes.draw do
+  resources :notes
   resources :notebooks
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]

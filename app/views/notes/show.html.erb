@@ -1,0 +1,7 @@
+<nav class='note_navigation'>
+  <ul>
+    <li><%= link_to 'back to notebook', notebook_path(@note.notebook) %></li>
+    <li><%= link_to 'edit', edit_note_path(@note) %></li>
+  </ul>
+</nav>
+<span class='content'><%= @note.content %></span>
