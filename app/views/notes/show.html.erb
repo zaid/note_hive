@@ -2,4 +2,4 @@
   <span class='left'><%= link_to 'back to notebook', notebook_path(@note.notebook) %></span>
   <span class='right'><%= link_to 'edit', edit_notebook_note_path(@notebook, @note) %></span>
 </div>
-<div class='note'><%= @note.content %></div>
+<div class='note'><%= markdown(@note.content) %></div>

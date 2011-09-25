@@ -30,6 +30,7 @@ end
 
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'redcarpet'
 
 # Use unicorn as the web server
 # gem 'unicorn'
