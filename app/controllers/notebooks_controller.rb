@@ -1,5 +1,6 @@
 class NotebooksController < ApplicationController
   before_filter :authenticate
+  before_filter :get_notebook, :only => [:show, :edit, :update, :destroy]
 
   def new
     @title = 'New notebook'
@@ -21,18 +22,14 @@ class NotebooksController < ApplicationController
   end
 
   def show
-    @notebook = current_user.notebooks.find(params[:id])
     @notes = @notebook.notes.page(params[:page]).per(8)
   end
 
   def edit
     @title = 'Edit notebook'
-    @notebook = current_user.notebooks.find(params[:id])
   end
 
   def update
-    @notebook = current_user.notebooks.find(params[:id])
-
     if @notebook.update_attributes(params[:notebook])
       flash[:success] = 'Notebook updated'
       redirect_to @notebook
@@ -43,9 +40,13 @@ class NotebooksController < ApplicationController
   end
 
   def destroy
-    @notebook = Notebook.find(params[:id])
     @notebook.destroy
     redirect_to notebooks_path
   end
 
+  private
+
+  def get_notebook
+    @notebook = current_user.notebooks.find(params[:id])
+  end
 end
