@@ -160,4 +160,26 @@ describe UsersController do
       end
     end
   end
+
+  describe "access control" do
+    
+    before(:each) do
+      @user = Factory(:user)
+    end
+
+    it "should deny access to the profile page" do
+      get :show, :id => @user
+      response.should redirect_to(signin_path)
+    end
+
+    it "should deny access to the edit profile page" do
+      get :edit, :id => @user
+      response.should redirect_to(signin_path)
+    end
+
+    it "should deny access to the update action" do
+      put :update, :id => @user
+      response.should redirect_to(signin_path)
+    end
+  end
 end
