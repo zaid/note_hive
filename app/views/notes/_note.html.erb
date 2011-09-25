@@ -1,6 +1,6 @@
 <tr>
   <td class='note'>
-    <span class='content'><%= note.content %></span>
+    <span class='content'><%= make_title(note.content) %></span>
   </td>
   <td>
     <%= link_to 'show', notebook_note_path(notebook, note), :class => 'right' %>
