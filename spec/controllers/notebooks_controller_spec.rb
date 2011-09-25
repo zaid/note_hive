@@ -223,9 +223,9 @@ describe NotebooksController do
       response.should have_selector('a', :href => new_notebook_note_path(@notebook1), :content => 'new note')
     end
 
-    it "should have an 'edit' link" do
+    it "should have an 'edit title' link" do
       get :show, :id => @notebook1
-      response.should have_selector('a', :href => edit_notebook_path(@notebook1), :content => 'edit notebook')
+      response.should have_selector('a', :href => edit_notebook_path(@notebook1), :content => 'edit title')
     end
   end
 
