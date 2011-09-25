@@ -33,7 +33,11 @@ describe NotebooksController do
       before(:each) do
         @notebooks = []
         30.times do
-          @notebooks << Factory(:notebook, :user => @user)
+          notebook = Factory(:notebook, :user => @user)
+          @notebooks << notebook 
+          30.times do
+            notebook.notes << Factory(:note, :notebook => notebook, :user => @user) 
+          end
         end
       end
 
@@ -43,6 +47,15 @@ describe NotebooksController do
         response.should have_selector('a', :href => '/notebooks?page=2', :content => '2')
         response.should have_selector('a', :href => '/notebooks?page=3', :content => '3')
         response.should have_selector('a', :href => '/notebooks?page=4', :content => '4')
+      end
+
+      it "should paginate notes" do
+        notebook = @notebooks.first
+        get :show, :id => notebook 
+        response.should have_selector('nav.pagination')
+        response.should have_selector('a', :href => notebook_path(notebook) +'?page=2', :content => '2')
+        response.should have_selector('a', :href => notebook_path(notebook) +'?page=3', :content => '3')
+        response.should have_selector('a', :href => notebook_path(notebook) +'?page=4', :content => '4')
       end
     end
   end

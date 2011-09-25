@@ -17,7 +17,7 @@ class NotebooksController < ApplicationController
 
   def show
     @notebook = current_user.notebooks.find(params[:id])
-    @notes = @notebook.notes # .page(params[:page]).per(8)
+    @notes = @notebook.notes.page(params[:page]).per(8)
   end
 
   def edit
