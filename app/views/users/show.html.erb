@@ -1,9 +1,13 @@
-<h2>Your profile</h2>
-<table>
+<table class='profile' summary='Profile information'>
   <tr>
-    <td>
+    <td class='main'>
+      <h2><%= @user.name %></h2>
+    </td>
+    <td class='sidebar round'>
       <strong>Name:</strong> <%= @user.name %><br />
       <strong>Email:</strong> <%= @user.email %><br />
+      <strong>URL:</strong> <%= link_to user_path(@user) %>
     </td>
   </tr>
 </table>
+<%= link_to 'Edit profile', edit_user_path(@user) %>

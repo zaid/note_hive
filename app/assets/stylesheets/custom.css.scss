@@ -195,3 +195,19 @@ table.notes {
   padding-left: 0px;
   padding-top: 10px;
 }
+
+table.profile {
+  width: 100%;
+
+  td.main {
+    width: 70%;
+    padding-left: 0px;
+  }
+
+  td.sidebar {
+    width: 30%;
+    padding: 1em;
+    vertical-align: top;
+    background: #ffc;
+  }
+}
