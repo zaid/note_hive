@@ -3,7 +3,10 @@
     <span class='content'><%= notebook.title %></span>
   </td>
   <td>
-    <%= link_to 'show', notebook %>
+    <%= link_to 'show', notebook, :class => 'right' %>
+  </td>
+  <td>
+    <%= link_to 'edit', edit_notebook_path(notebook), :class => 'right' %>
   </td>
   <td>
     <%= link_to 'delete', notebook, :method => :delete, 

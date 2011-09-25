@@ -1,6 +1,11 @@
 class NotebooksController < ApplicationController
   before_filter :authenticate
 
+  def new
+    @title = 'New notebook'
+    @notebook = current_user.notebooks.new if signed_in?
+  end
+
   def create
     @notebook = current_user.notebooks.build(params[:notebook])
     if @notebook.save

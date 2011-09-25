@@ -20,12 +20,36 @@ describe NotebooksController do
     end
 
     it "should show the user's notebooks" do
-      mp1 = Factory(:notebook, :user => @user, :title => 'Foo bar')
-      mp2 = Factory(:notebook, :user => @user, :title => 'Baz quux')
+      nb1 = Factory(:notebook, :user => @user, :title => 'Foo bar')
+      nb2 = Factory(:notebook, :user => @user, :title => 'Baz quux')
 
       get :index
-      response.should have_selector('span.content', :content => mp1.title)
-      response.should have_selector('span.content', :content => mp2.title)
+      response.should have_selector('span.content', :content => nb1.title)
+      response.should have_selector('span.content', :content => nb2.title)
+    end
+
+    it "should show the 'show' link for each user's notebook'" do
+      nb1 = Factory(:notebook, :user => @user, :title => 'First notebook')
+      nb2 = Factory(:notebook, :user => @user, :title => 'Second notebook')
+
+      get :index
+      response.should have_selector('a', :href => notebook_path(nb1), :content => 'show')
+    end
+
+    it "should show the 'edit' link for each user's notebook'" do
+      nb1 = Factory(:notebook, :user => @user, :title => 'First notebook')
+      nb2 = Factory(:notebook, :user => @user, :title => 'Second notebook')
+
+      get :index
+      response.should have_selector('a', :href => edit_notebook_path(nb1), :content => 'edit')
+    end
+
+    it "should show the 'delete' link for each user's notebook'" do
+      nb1 = Factory(:notebook, :user => @user, :title => 'First notebook')
+      nb2 = Factory(:notebook, :user => @user, :title => 'Second notebook')
+
+      get :index
+      response.should have_selector('a', :href => notebook_path(nb1), :content => 'delete')
     end
 
     describe "pagination" do
@@ -57,6 +81,24 @@ describe NotebooksController do
         response.should have_selector('a', :href => notebook_path(notebook) +'?page=3', :content => '3')
         response.should have_selector('a', :href => notebook_path(notebook) +'?page=4', :content => '4')
       end
+    end
+  end
+
+  describe "GET 'new'" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      session[:user_id] = @user.id
+    end
+
+    it "should be successful" do
+      get :new
+      response.should be_success
+    end
+
+    it "should have the right title" do
+      get :new
+      response.should have_selector('title', :content => 'New notebook')
     end
   end
 

@@ -1,14 +1,8 @@
+<h2>NoteHive</h2>
 <% if signed_in? %>
-  <table class='front' summary='For signed-in users'>
-    <tr>
-      <td class='main'>
-        <h2>Add a notebook!</h2>
-        <%= render 'notebooks/notebook_form', :notebook => @notebook %>
-      </td>
-    </tr>
-  </table>
+  <p>To create new notebooks and notes, click on the 'Notebooks' button at
+    the top navigation menu.</p>
 <% else %>
-  <h2>NoteHive</h2>
   <p>This is the home page for the NoteHive application.</p>
   <%= link_to 'Sign up now!', signup_path, :class => 'signup_button round' %>
 <% end %>

@@ -2,7 +2,6 @@ class PagesController < ApplicationController
 
   def home
     @title = 'Home'
-    @notebook = Notebook.new if signed_in?
   end
 
   def about

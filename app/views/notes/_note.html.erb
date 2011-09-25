@@ -3,10 +3,13 @@
     <span class='content'><%= note.content %></span>
   </td>
   <td>
-    <%= link_to 'show', notebook_note_path(notebook, note) %>
+    <%= link_to 'show', notebook_note_path(notebook, note), :class => 'right' %>
+  </td>
+  <td>
+    <%= link_to 'edit', edit_notebook_note_path(notebook, note), :class => 'right' %>
   </td>
   <td>
     <%= link_to 'delete', notebook_note_path(notebook, note), :method => :delete,
-                                :confirm => 'You sure?' %>
+                                :confirm => 'You sure?', :class => 'right' %>
   </td>
 </tr>

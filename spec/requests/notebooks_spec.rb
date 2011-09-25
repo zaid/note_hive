@@ -17,7 +17,8 @@ describe "Notebooks" do
       
       it "should not make a new notebook" do
         lambda do
-          visit root_path
+          visit notebooks_path
+          click_link 'new notebook'
           fill_in :notebook_title, :with => ''
           click_button
           response.should render_template('notebooks/new')
@@ -30,7 +31,8 @@ describe "Notebooks" do
       
       it "should make a new notebook" do
         lambda do
-          visit root_path
+          visit notebooks_path
+          click_link 'new notebook'
           fill_in :notebook_title, :with => 'Foo bar'
           click_button
           response.should have_selector('span.content', :content => 'Foo bar')

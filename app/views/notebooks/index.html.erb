@@ -1,4 +1,5 @@
 <h2>Notebooks</h2>
+<span class='left'><%= link_to 'new notebook', new_notebook_path %></span>
 <%= paginate @notebooks %>
 <table class='notebooks' summary='User notebooks'>
   <%= render @notebooks %>
