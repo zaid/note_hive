@@ -45,6 +45,11 @@ describe "LayoutLinks" do
       visit root_path
       response.should have_selector('a', :href => signup_path, :content => 'Sign up')
     end
+
+    it "should have a signup link on the signin page" do
+      visit signin_path
+      response.should have_selector('a', :href => signup_path, :content => 'Sign up')
+    end
   end
 
   describe "when signed in" do
