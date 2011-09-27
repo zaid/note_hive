@@ -7,4 +7,6 @@ class Note < ActiveRecord::Base
   validates :content, :presence => true
   validates :user_id, :presence => true
   validates :notebook_id, :presence => true
+
+  default_scope :order => 'notes.updated_at DESC'
 end

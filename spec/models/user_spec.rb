@@ -91,7 +91,8 @@ describe User do
     
     before(:each) do
       @user = Factory(:user)
-      @nb1 = Factory(:notebook, :user => @user)
+      @notebook1 = Factory(:notebook, :user => @user, :title => 'Foo bar', :updated_at => 1.day.ago)
+      @notebook2 = Factory(:notebook, :user => @user, :title => 'Bar foo', :updated_at => 1.hour.ago)
     end
 
     it "should have a notebook attribute" do
@@ -100,7 +101,11 @@ describe User do
 
     it "should destroy associated notebooks" do
       @user.destroy
-      Notebook.find_by_id(@nb1.id).should be_nil
+      Notebook.find_by_id(@notebook1.id).should be_nil
+    end
+
+    it "should have the right notebooks in the right order" do
+      @user.notebooks.should == [@notebook2, @notebook1]
     end
   end
 
@@ -109,11 +114,16 @@ describe User do
     before(:each) do
       @user = Factory(:user)
       @notebook = Factory(:notebook, :user => @user)
-      @note = Factory(:note, :user => @user, :notebook => @notebook)
+      @note1 = Factory(:note, :user => @user, :notebook => @notebook, :content => 'Foo bar', :updated_at => 1.day.ago)
+      @note2 = Factory(:note, :user => @user, :notebook => @notebook, :content => 'Bar foo', :updated_at => 1.hour.ago)
     end
 
     it "should have a notebook attribute" do
       @user.should respond_to(:notes)
+    end
+
+    it "should have the right notes in the right order" do
+      @user.notes.should == [@note2, @note1]
     end
   end
 end
