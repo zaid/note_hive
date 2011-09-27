@@ -102,6 +102,7 @@ describe User do
     it "should destroy associated notebooks" do
       @user.destroy
       Notebook.find_by_id(@notebook1.id).should be_nil
+      Notebook.find_by_id(@notebook2.id).should be_nil
     end
 
     it "should have the right notebooks in the right order" do
@@ -120,6 +121,12 @@ describe User do
 
     it "should have a notebook attribute" do
       @user.should respond_to(:notes)
+    end
+
+    it "should destroy associated notes" do
+      @user.destroy
+      Notebook.find_by_id(@note1.id).should be_nil
+      Notebook.find_by_id(@note2.id).should be_nil
     end
 
     it "should have the right notes in the right order" do
