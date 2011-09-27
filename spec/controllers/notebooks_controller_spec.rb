@@ -41,7 +41,7 @@ describe NotebooksController do
       nb2 = Factory(:notebook, :user => @user, :title => 'Second notebook')
 
       get :index
-      response.should have_selector('a', :href => edit_notebook_path(nb1), :content => 'edit')
+      response.should have_selector('a', :href => edit_notebook_path(nb1), :content => 'edit title')
     end
 
     it "should show the 'delete' link for each user's notebook'" do
