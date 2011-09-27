@@ -82,6 +82,11 @@ describe UsersController do
       response.should be_success
     end
 
+    it "should have the right title" do
+      get :show, :id => @user
+      response.should have_selector('title', :content => 'Profile')
+    end
+
     it "should show the user's name and email" do
       get :show, :id => @user
       response.should have_selector('td', :content => @user.name)
@@ -180,6 +185,28 @@ describe UsersController do
     it "should deny access to the update action" do
       put :update, :id => @user
       response.should redirect_to(signin_path)
+    end
+  end
+
+  describe "authentication of edit/update actions" do
+    
+    describe "for signed-in users" do
+      
+      before(:each) do
+        @user = Factory(:user)
+        wrong_user = Factory(:user, :email => 'wrong_user@example.ca')
+        session[:user_id] = wrong_user.id
+      end
+
+      it "should require matching users for edit" do
+        get :edit, :id => @user
+        response.should redirect_to(root_path)
+      end
+
+      it "should require matching users for update" do
+        put :update, :id => @user, :user => {}
+        response.should redirect_to(root_path)
+      end
     end
   end
 end
