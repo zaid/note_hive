@@ -4,6 +4,8 @@ class Note < ActiveRecord::Base
   belongs_to :user
   belongs_to :notebook
 
+  acts_as_taggable
+
   validates :content, :presence => true
   validates :user_id, :presence => true
   validates :notebook_id, :presence => true

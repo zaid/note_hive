@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'faker'
 
 describe Note do
   
@@ -70,6 +71,33 @@ describe Note do
     it "should have the right associated notebook" do
       @note.notebook_id.should == @notebook.id
       @note.notebook.should == @notebook
+    end
+  end
+
+  describe "tagging" do
+
+    before(:each) do
+      @note1 = Factory(:note, :user => @user, :notebook => @notebook, :content => Faker::Lorem.sentences(5).join)
+      @note2 = Factory(:note, :user => @user, :notebook => @notebook, :content => Faker::Lorem.sentences(5).join)
+      @note3 = Factory(:note, :user => @user, :notebook => @notebook, :content => Faker::Lorem.sentences(5).join)
+    end
+
+    it "should have a 'tags' attribute" do
+      @note1.should respond_to(:tags)
+    end
+
+    it "should find tagged notebooks" do
+      @note1.tag_list = 'lorem, random'
+      @note1.save
+
+      @note3.tag_list = 'lorem'
+      @note3.save
+
+      lorem_notes = Note.tagged_with('lorem')
+      lorem_notes.count.should == 2
+
+      lorem_notes.find(@note1.id).should == @note1
+      lorem_notes.find(@note3.id).should == @note3
     end
   end
 end
