@@ -31,6 +31,7 @@ end
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'redcarpet'
+gem 'acts-as-taggable-on'
 
 # Use unicorn as the web server
 # gem 'unicorn'
