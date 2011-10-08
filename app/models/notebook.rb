@@ -1,7 +1,9 @@
 class Notebook < ActiveRecord::Base
-  attr_accessible :title
+  attr_accessible :title, :tag_list
+
   belongs_to :user
   has_many :notes
+
   acts_as_taggable
 
   validates :title, :presence => true, :length => { :maximum => 80 }

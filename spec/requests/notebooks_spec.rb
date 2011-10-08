@@ -39,6 +39,18 @@ describe "Notebooks" do
         end.should change(Notebook, :count).by(1)
       end
     end
+
+    it "should make a new notebook with tags" do
+      lambda do
+        visit notebooks_path
+        click_link 'new notebook'
+        fill_in :notebook_title, :with => 'Foo bar'
+        fill_in :notebook_tag_list, :with => 'lorem, ipsum'
+        click_button
+        visit notebook_path(@user.notebooks.first)
+        response.should have_selector('p', :content => 'Tags')
+      end.should change(Notebook, :count).by(1)
+    end
   end
 
   describe "listing" do

@@ -1,6 +1,7 @@
 <h2><%= @notebook.title %></h2>
+<p><strong>Tags</strong> <%= @notebook.tag_list %></p>
 <span class='left'><%= link_to 'new note', new_notebook_note_path(@notebook) %></span>
-<span class='right'><%= link_to 'edit title', edit_notebook_path(@notebook) %></span>
+<span class='right'><%= link_to 'edit', edit_notebook_path(@notebook) %></span>
 <%= paginate @notes %>
 <table class='notes' summary='User notes'>
   <%= render @notes, :notebook => @notebook %>

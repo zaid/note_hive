@@ -41,7 +41,7 @@ describe NotebooksController do
       nb2 = Factory(:notebook, :user => @user, :title => 'Second notebook')
 
       get :index
-      response.should have_selector('a', :href => edit_notebook_path(nb1), :content => 'edit title')
+      response.should have_selector('a', :href => edit_notebook_path(nb1), :content => 'edit')
     end
 
     it "should show the 'delete' link for each user's notebook'" do
@@ -193,7 +193,7 @@ describe NotebooksController do
     
     before(:each) do
       @user = Factory(:user)
-      @notebook1 = Factory(:notebook, :user => @user, :title => 'Foo bar')
+      @notebook1 = Factory(:notebook, :user => @user, :title => 'Foo bar', :tag_list => 'lorem, ipsum')
       @notebook2 = Factory(:notebook, :user => @user, :title => 'Bar foo')
       session[:user_id] = @user.id
     end
@@ -223,9 +223,14 @@ describe NotebooksController do
       response.should have_selector('a', :href => new_notebook_note_path(@notebook1), :content => 'new note')
     end
 
-    it "should have an 'edit title' link" do
+    it "should have an 'edit' link" do
       get :show, :id => @notebook1
-      response.should have_selector('a', :href => edit_notebook_path(@notebook1), :content => 'edit title')
+      response.should have_selector('a', :href => edit_notebook_path(@notebook1), :content => 'edit')
+    end
+
+    it "should show a list of tags for the notebook" do
+      get :show, :id => @notebook1
+      response.should have_selector('p', :content => "Tags #{@notebook1.tag_list}")
     end
   end
 
@@ -270,12 +275,13 @@ describe NotebooksController do
         put :update, :id => @notebook, :notebook => @attr
         response.should have_selector('title', :content => 'Edit notebook')
       end
+
     end
 
     describe "success" do
       
       before(:each) do
-        @attr = { :title => 'New updated title!' }
+        @attr = { :title => 'New updated title!', :tag_list => ['magic'] }
       end
 
       it "should update the notebook's title" do
@@ -292,6 +298,12 @@ describe NotebooksController do
       it "should show a flash message" do
         put :update, :id => @notebook, :notebook => @attr
         flash[:success].should =~ /notebook updated/i
+      end
+      
+      it "should update the notebook's tags" do
+        put :update, :id => @notebook, :notebook => @attr
+        @notebook.reload
+        @notebook.tag_list.should == @attr[:tag_list]
       end
     end
   end
