@@ -1,5 +1,5 @@
 class Note < ActiveRecord::Base
-  attr_accessible :content
+  attr_accessible :content, :tag_list
 
   belongs_to :user
   belongs_to :notebook

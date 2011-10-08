@@ -2,6 +2,8 @@ class NotebooksController < ApplicationController
   before_filter :authenticate
   before_filter :get_notebook, :only => [:show, :edit, :update, :destroy]
 
+  include NotesHelper
+
   def new
     @title = 'New notebook'
     @notebook = current_user.notebooks.new if signed_in?

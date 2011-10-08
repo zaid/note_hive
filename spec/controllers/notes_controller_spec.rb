@@ -68,7 +68,7 @@ describe NotesController do
     before(:each) do
       @user = Factory(:user)
       @notebook = Factory(:notebook, :user => @user)
-      @note = Factory(:note, :notebook => @notebook, :user => @user)
+      @note = Factory(:note, :notebook => @notebook, :user => @user, :tag_list => 'lorem, ipsum')
       session[:user_id] = @user.id
     end
 
@@ -90,6 +90,11 @@ describe NotesController do
     it "should have an 'edit' link" do
       get :show, :notebook_id => @notebook, :id => @note
       response.should have_selector('a', :href => edit_notebook_note_path(@notebook, @note), :content => 'edit')
+    end
+
+    it "should show the note's tags" do
+      get :show, :notebook_id => @notebook, :id => @note
+      response.should have_selector('p', :content => "Tags #{@note.tag_list}")
     end
   end
 
@@ -142,7 +147,7 @@ describe NotesController do
     describe "success" do
 
       before(:each) do
-        @attr = { :content => Faker::Lorem.sentences(15).join }
+        @attr = { :content => Faker::Lorem.sentences(15).join, :tag_list => ['lorem', 'ipsum'] }
       end
 
       it "should change the note's content" do
@@ -159,6 +164,12 @@ describe NotesController do
       it "should show a flash message" do
         put :update, :notebook_id => @notebook, :id => @note, :note => @attr
         flash[:success].should =~ /note updated/i
+      end
+
+      it "should change the note's tags" do
+        put :update, :notebook_id => @notebook, :id => @note, :note => @attr
+        @note.reload
+        @note.tag_list.should == @attr[:tag_list]
       end
     end
   end
