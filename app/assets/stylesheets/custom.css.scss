@@ -152,6 +152,11 @@ table.notebooks {
       vertical-align: top;
       padding-top: 10px;
     }
+
+    .right {
+      width: 2em;
+    }
+
   }
 }
 
@@ -166,6 +171,10 @@ table.notes {
     td.note {
       vertical-align: top;
       padding-top: 10px;
+    }
+
+    .right {
+      width: 2em;
     }
   }
 }
