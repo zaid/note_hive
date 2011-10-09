@@ -230,7 +230,10 @@ describe NotebooksController do
 
     it "should show a list of tags for the notebook" do
       get :show, :id => @notebook1
-      response.should have_selector('p', :content => "Tags #{@notebook1.tag_list}")
+
+      @notebook1.tags.each do |tag|
+        response.should have_selector('a', :href => tag_path(tag.name), :content => tag.name)
+      end
     end
   end
 

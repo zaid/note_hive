@@ -58,7 +58,10 @@ describe "Notes" do
 
           note = @user.notes.first
           visit notebook_note_path(@notebook, note)
-          response.should have_selector('p', :content => "Tags #{note.tag_list}")
+
+          note.tags.each do |tag|
+            response.should have_selector('a', :href => tag_path(tag.name), :content => tag.name)
+          end
         end.should change(Note, :count).by(1)
       end
     end

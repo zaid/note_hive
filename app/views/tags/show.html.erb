@@ -1,0 +1,11 @@
+<h3>Notebooks tagged with '<%= @tag %>'</h3>
+<table class='notebooks'>
+  <%= render @notebooks %>
+</table>
+
+<h3>Notes tagged with '<%= @tag %>'</h3>
+<table class='notes'>
+  <% @notes.each do |note| %>
+    <%= render note, :notebook => note.notebook %>
+  <% end %>
+</table>
