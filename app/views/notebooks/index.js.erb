@@ -1,0 +1,2 @@
+$('.notebooks').html("<%= escape_javascript(render @notebooks) %>")
+$('.paginator').html("<%= escape_javascript(paginate @notebooks, :remote => true) %>")

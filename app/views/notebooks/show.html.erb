@@ -6,7 +6,7 @@
 </p>
 <span class='left'><%= link_to 'new note', new_notebook_note_path(@notebook) %></span>
 <span class='right'><%= link_to 'edit', edit_notebook_path(@notebook) %></span>
-<%= paginate @notes %>
+<span class='paginator'><%= paginate @notes, :remote => true %></span>
 <table class='notes' summary='User notes'>
   <%= render @notes, :notebook => @notebook %>
 </table>

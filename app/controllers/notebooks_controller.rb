@@ -4,6 +4,8 @@ class NotebooksController < ApplicationController
 
   include NotesHelper
 
+  respond_to :html, :js
+
   def new
     @title = 'New notebook'
     @notebook = current_user.notebooks.new if signed_in?
@@ -21,10 +23,12 @@ class NotebooksController < ApplicationController
 
   def index
     @notebooks = current_user.notebooks.page(params[:page]).per(8)
+    respond_with @notebooks
   end
 
   def show
     @notes = @notebook.notes.page(params[:page]).per(8)
+    respond_with @notes
   end
 
   def edit
