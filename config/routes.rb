@@ -1,6 +1,6 @@
 NoteHive::Application.routes.draw do
 
-  resources :tags, :only => [:show]
+  resources :tags, :only => [:index, :show]
 
   resources :notebooks do
     resources :notes

@@ -76,5 +76,10 @@ describe "LayoutLinks" do
       visit root_path
       response.should have_selector('a', :href => notebooks_path, :content => 'Notebooks')
     end
+
+    it "should have a tags link" do
+      visit root_path
+      response.should have_selector('a', :href => tags_path, :content => 'Tags')
+    end
   end
 end

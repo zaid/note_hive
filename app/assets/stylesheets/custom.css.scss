@@ -218,3 +218,28 @@ table.profile {
     background: #ffc;
   }
 }
+
+.tags {
+  text-align: center;
+}
+
+@mixin tag_style {
+  padding: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.css1 {
+  font-size: 1.0em;
+  @include tag_style;
+}
+.css2 {
+  font-size: 1.2em;
+  @include tag_style;
+}
+.css3 {
+  font-size: 1.4em;
+  @include tag_style;
+}
+.css4 {
+  font-size: 1.6em;
+  @include tag_style;
+}
