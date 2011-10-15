@@ -28,12 +28,21 @@ describe NotebooksController do
       response.should have_selector('span.content', :content => nb2.title)
     end
 
+    it "should show the last updated timestamp for each user's notebook" do
+      nb = Factory(:notebook, :user => @user, :title => 'A notebook')
+
+      get :index
+      response.should have_selector('span.timestamp', :content => "Last updated ")
+
+    end
+
     it "should show the 'show' link for each user's notebook'" do
       nb1 = Factory(:notebook, :user => @user, :title => 'First notebook')
       nb2 = Factory(:notebook, :user => @user, :title => 'Second notebook')
 
       get :index
       response.should have_selector('a', :href => notebook_path(nb1), :content => 'show')
+      response.should have_selector('a', :href => notebook_path(nb2), :content => 'show')
     end
 
     it "should show the 'edit' link for each user's notebook'" do
@@ -42,6 +51,7 @@ describe NotebooksController do
 
       get :index
       response.should have_selector('a', :href => edit_notebook_path(nb1), :content => 'edit')
+      response.should have_selector('a', :href => edit_notebook_path(nb2), :content => 'edit')
     end
 
     it "should show the 'delete' link for each user's notebook'" do
@@ -50,6 +60,7 @@ describe NotebooksController do
 
       get :index
       response.should have_selector('a', :href => notebook_path(nb1), :content => 'delete')
+      response.should have_selector('a', :href => notebook_path(nb2), :content => 'delete')
     end
 
     describe "pagination" do
@@ -216,6 +227,14 @@ describe NotebooksController do
       get :show, :notebook_id => @notebook, :id => @notebook1
       response.should have_selector('span.content', :content => note1.content)
       response.should have_selector('span.content', :content => note2.content)
+    end
+
+    it "should show the last updated time for each note in the notebook" do
+      note = Factory(:note, :notebook => @notebook1, :user => @user, :content => 'Foo bar')
+
+      get :show, :notebook_id => @notebook, :id => @notebook1
+      response.should have_selector('span.timestamp', :content => 'Last updated ')
+ 
     end
 
     it "should have a 'new note' link" do
