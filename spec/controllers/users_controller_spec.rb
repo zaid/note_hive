@@ -209,4 +209,50 @@ describe UsersController do
       end
     end
   end
+
+  describe "DELETE 'destroy'" do
+    
+    before(:each) do
+      @user = Factory(:user)
+    end
+
+    describe "failure " do
+      
+      it "should deny access if not signed-in" do
+        delete :destroy, :id => @user
+        response.should redirect_to(signin_path)
+      end
+
+      it "should not destroy the wrong user" do
+        session[:user_id] = @user
+        wrong_user = Factory(:user, :name => 'Wrong user', :email => 'wrong_user@example.ca')
+
+        delete :destroy, :id => wrong_user
+        response.should redirect_to(root_path)
+      end
+    end
+
+    describe "success" do
+      
+      before(:each) do
+        session[:user_id] = @user
+      end
+
+      it "should destroy the user" do
+        lambda do
+          delete :destroy, :id => @user
+        end.should change(User, :count).by(-1)
+      end
+
+      it "should sign the user out" do
+        delete :destroy, :id => @user
+        controller.should_not be_signed_in
+      end
+
+      it "should redirect to the home page" do
+        delete :destroy, :id => @user
+        response.should redirect_to(root_path)
+      end
+    end
+  end
 end

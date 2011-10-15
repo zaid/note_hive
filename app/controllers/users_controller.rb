@@ -38,6 +38,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    session[:user_id] = nil
+    redirect_to(root_path)
+  end
+
   private
 
     def correct_user

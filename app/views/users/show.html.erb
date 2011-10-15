@@ -11,3 +11,6 @@
   </tr>
 </table>
 <%= link_to 'Edit profile', edit_user_path(@user) %>
+<%= link_to 'Delete account', user_path(@user), :method => :delete,
+                                                :confirm => 'You sure?',
+                                                :class => 'right delete' %>
