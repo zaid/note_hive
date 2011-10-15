@@ -151,12 +151,8 @@ table.notebooks {
     td.notebook {
       vertical-align: top;
       padding-top: 10px;
+      width: 85%;
     }
-
-    .right {
-      width: 2em;
-    }
-
   }
 }
 
@@ -171,10 +167,7 @@ table.notes {
     td.note {
       vertical-align: top;
       padding-top: 10px;
-    }
-
-    .right {
-      width: 2em;
+      width: 85%;
     }
   }
 }
@@ -242,4 +235,12 @@ table.profile {
 .css4 {
   font-size: 1.6em;
   @include tag_style;
+}
+
+a.delete {
+  color: #800000;
+}
+
+.action {
+  width: 5%;
 }

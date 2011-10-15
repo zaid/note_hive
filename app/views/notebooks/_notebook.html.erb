@@ -2,15 +2,15 @@
   <td class='notebook'>
     <span class='content'><%= notebook.title %></span>
   </td>
-  <td>
+  <td class='action'>
     <%= link_to 'show', notebook, :class => 'right' %>
   </td>
-  <td>
+  <td class='action'>
     <%= link_to 'edit', edit_notebook_path(notebook), :class => 'right' %>
   </td>
-  <td>
+  <td class='action'>
     <%= link_to 'delete', notebook, :method => :delete, 
                                     :confirm => 'You sure?',
-                                    :title => notebook.title, :class => 'right' %>
+                                    :title => notebook.title, :class => 'right delete' %>
   </td>
 </tr>
