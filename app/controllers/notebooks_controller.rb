@@ -22,7 +22,8 @@ class NotebooksController < ApplicationController
   end
 
   def index
-    @notebooks = current_user.notebooks.page(params[:page]).per(8)
+    @search = current_user.notebooks.search(params[:q])
+    @notebooks = @search.result(:distinct => true).page(params[:page]).per(8)
     respond_with @notebooks
   end
 

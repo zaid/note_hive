@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'faker'
 
 describe NotebooksController do
   render_views
@@ -63,6 +64,11 @@ describe NotebooksController do
       response.should have_selector('a', :href => notebook_path(nb2), :content => 'delete')
     end
 
+    it "should have a search field" do
+      get :index
+      response.should have_selector('form', :id => 'notebook_search')
+    end
+
     describe "pagination" do
       
       before(:each) do
@@ -91,6 +97,27 @@ describe NotebooksController do
         response.should have_selector('a', :href => notebook_path(notebook) +'?page=2', :content => '2')
         response.should have_selector('a', :href => notebook_path(notebook) +'?page=3', :content => '3')
         response.should have_selector('a', :href => notebook_path(notebook) +'?page=4', :content => '4')
+      end
+    end
+
+    describe "searching" do
+      
+      before(:each) do
+        @notebooks = []
+        @notebooks << Factory(:notebook, :user => @user, :title => 'ruby on rails books')
+        @notebooks << Factory(:notebook, :user => @user, :title => 'rails recipes')
+        5.times do 
+          @notebooks << Factory(:notebook, :user => @user, :title => Faker::Lorem.words(3).join)
+        end
+
+        @attr = { :title_cont =>'rails' }
+      end
+
+      it "should find the matching notebooks" do
+        get :index, :q => @attr
+        response.should have_selector('span.content', :content => @notebooks.first.title)
+        response.should have_selector('span.content', :content => @notebooks.second.title)
+        response.should_not have_selector('span.content', :content => @notebooks.third.title)
       end
     end
   end

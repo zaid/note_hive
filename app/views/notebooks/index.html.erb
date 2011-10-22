@@ -1,5 +1,11 @@
 <h2>Notebooks</h2>
 <span class='left'><%= link_to 'new notebook', new_notebook_path %></span>
+<span class='right'>
+  <%= search_form_for @search, do |f| %>
+    <%= f.text_field :title_cont %>
+    <%= f.submit %>
+  <% end %>
+</span>
 <span class='paginator'><%= paginate @notebooks, :remote => true %></span>
 <table class='notebooks' summary='User notebooks'>
   <%= render @notebooks %>
