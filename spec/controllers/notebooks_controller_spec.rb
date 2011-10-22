@@ -250,10 +250,14 @@ describe NotebooksController do
     it "should show the notebook's notes" do
       note1 = Factory(:note, :notebook => @notebook1, :user => @user, :content => 'Foo bar')
       note2 = Factory(:note, :notebook => @notebook1, :user => @user, :content => 'Bar foo')
+      note3 = Factory(:note, :notebook => @notebook2, :user => @user, :content => Faker::Lorem.words(2).join)
+      note4 = Factory(:note, :notebook => @notebook2, :user => @user, :content => Faker::Lorem.words(2).join)
 
       get :show, :notebook_id => @notebook, :id => @notebook1
       response.should have_selector('span.content', :content => note1.content)
       response.should have_selector('span.content', :content => note2.content)
+      response.should_not have_selector('span.content', :content => note3.content)
+      response.should_not have_selector('span.content', :content => note4.content)
     end
 
     it "should show the last updated time for each note in the notebook" do
