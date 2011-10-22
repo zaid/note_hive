@@ -281,6 +281,34 @@ describe NotebooksController do
         response.should have_selector('a', :href => tag_path(tag.name), :content => tag.name)
       end
     end
+
+    it "should have a search field" do
+      get :show, :id => @notebook1
+      response.should have_selector('form', :id => 'note_search')
+    end
+
+    describe "searching" do
+      
+      before(:each) do
+        @notebook = Factory(:notebook, :user => @user)
+        @notes = []
+        @notes << Factory(:note, :user => @user, :notebook => @notebook, :content => 'ruby on rails notes')
+        @notes << Factory(:note, :user => @user, :notebook => @notebook, :content => 'rails search recipes ')
+        5.times do 
+          @notes << Factory(:note, :user => @user, :notebook => @notebook, :content => Faker::Lorem.words(3).join)
+        end
+
+        @attr = { :content_cont =>'rails' }
+      end
+
+      it "should find the matching notes" do
+        get :show, :id => @notebook, :q => @attr
+        response.should have_selector('span.content', :content => @notes.first.content)
+        response.should have_selector('span.content', :content => @notes.second.content)
+        response.should_not have_selector('span.content', :content => @notes.third.content)
+        response.should_not have_selector('span.content', :content => @notes.fourth.content)
+      end
+    end
   end
 
   describe "GET 'edit'" do

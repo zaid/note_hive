@@ -28,7 +28,8 @@ class NotebooksController < ApplicationController
   end
 
   def show
-    @notes = @notebook.notes.page(params[:page]).per(8)
+    @search = current_user.notes.search(params[:q])
+    @notes = @search.result(:distinct => true).page(params[:page]).per(8)
     respond_with @notes
   end
 
