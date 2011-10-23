@@ -1,0 +1,10 @@
+// Notebooks
+$('.notebooks').html("<%= escape_javascript(render @notebooks) %>")
+$('.notebooks_paginator').html("<%= escape_javascript(paginate @notebooks, :param_name => :notebook_page, :remote => true) %>")
+
+// Notes
+$('.notes').empty()
+<% @notes.each do |note| %>
+  $('.notes').append("<%= escape_javascript(render note, :notebook => note.notebook) %>")
+<% end %>
+$('.notes_paginator').html("<%= escape_javascript(paginate @notes, :param_name => :note_page, :remote => true) %>")

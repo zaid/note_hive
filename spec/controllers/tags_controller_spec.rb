@@ -69,7 +69,7 @@ describe TagsController do
     before(:each) do
       @notebooks = []
 
-      2.times do
+      12.times do
         @notebooks << Factory(:notebook, :user => @user, :title => Faker::Lorem.words(2).join(' '), :tag_list => 'lorem')
       end
     end
@@ -90,9 +90,16 @@ describe TagsController do
       it "should show tagged notebooks" do
         get :show, :id => 'lorem'
 
-        @notebooks.each do |notebook|
+        @notebooks[-4, 4].each do |notebook|
           response.should have_selector('span.content', :content => notebook.title)
         end
+      end
+
+      it "should paginate notebooks" do
+        get :show, :id => 'lorem'
+        response.should have_selector('nav.pagination')
+        response.should have_selector('a', :href => '/tags/lorem?notebook_page=2', :content => '2')
+        response.should have_selector('a', :href => '/tags/lorem?notebook_page=3', :content => '3')
       end
     end
 
@@ -101,7 +108,7 @@ describe TagsController do
       before(:each) do
         @notes = []
         
-        2.times do
+        12.times do
           @notes << Factory(:note, :notebook => @notebooks.first, :user => @user, :content => Faker::Lorem.sentences.join(' '), :tag_list => 'lorem')
         end
 
@@ -113,9 +120,16 @@ describe TagsController do
       it "should show tagged notes" do
         get :show, :id => 'lorem'
 
-        @notes.each do |note|
+        @notes[-4, 4].each do |note|
           response.should have_selector('span.content', :content => controller.make_title(note.content))
         end
+      end
+      
+      it "should paginate notes" do
+        get :show, :id => 'lorem'
+        response.should have_selector('nav.pagination')
+        response.should have_selector('a', :href => '/tags/lorem?note_page=2', :content => '2')
+        response.should have_selector('a', :href => '/tags/lorem?note_page=3', :content => '3')
       end
     end
   end

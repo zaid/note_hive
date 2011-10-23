@@ -1,9 +1,11 @@
 <h3>Notebooks tagged with '<%= @tag %>'</h3>
+<span class='notebooks_paginator'><%= paginate @notebooks, :param_name => :notebook_page, :remote => true %></span>
 <table class='notebooks'>
   <%= render @notebooks %>
 </table>
 
 <h3>Notes tagged with '<%= @tag %>'</h3>
+<span class='notes_paginator'><%= paginate @notes, :param_name => :note_page, :remote => true %></span>
 <table class='notes'>
   <% @notes.each do |note| %>
     <%= render note, :notebook => note.notebook %>

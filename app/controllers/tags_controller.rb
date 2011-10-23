@@ -11,8 +11,8 @@ class TagsController < ApplicationController
 
   def show
     @tag = params[:id]
-    @notebooks = current_user.notebooks.tagged_with(params[:id])
-    @notes = current_user.notes.tagged_with(params[:id])
-  end
+    @notebooks = current_user.notebooks.tagged_with(params[:id]).page(params[:notebook_page]).per(4)
+    @notes = current_user.notes.tagged_with(params[:id]).page(params[:note_page]).per(4)
 
+  end
 end
