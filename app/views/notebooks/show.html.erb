@@ -7,7 +7,7 @@
 <span class='left'><%= link_to 'new note', new_notebook_note_path(@notebook) %></span>
 <span class='right'><%= link_to 'edit', edit_notebook_path(@notebook) %></span>
 <span class='clear right'>
-  <%= search_form_for @search, :url => notebook_path(@notebook) do |f| %>
+  <%= search_form_for @search, :remote => true, :url => notebook_path(@notebook) do |f| %>
     <%= f.text_field :content_cont %>
     <%= f.submit %>
   <% end %>
