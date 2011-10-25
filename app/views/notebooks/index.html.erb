@@ -2,7 +2,7 @@
 <span class='left'><%= link_to 'new notebook', new_notebook_path %></span>
 <span class='right'>
   <%= search_form_for @search, :remote => true do |f| %>
-    <%= f.text_field :title_cont %>
+    <%= f.text_field :notes_content_or_title_cont %>
     <%= f.submit %>
   <% end %>
 </span>

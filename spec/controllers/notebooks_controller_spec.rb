@@ -119,6 +119,16 @@ describe NotebooksController do
         response.should have_selector('span.content', :content => @notebooks.second.title)
         response.should_not have_selector('span.content', :content => @notebooks.third.title)
       end
+
+      it "should find notebooks which have matching notes" do
+        note_with_text_to_find = Factory(:note, :notebook => @notebooks.fourth, :user => @user, :content => 'rspec')
+
+        get :index, :q => { :notes_content_or_title_cont => 'rspec' }
+        response.should have_selector('span.content', :content => @notebooks.fourth.title)
+        response.should_not have_selector('span.content', :content => @notebooks.first.title)
+        response.should_not have_selector('span.content', :content => @notebooks.second.title)
+        response.should_not have_selector('span.content', :content => @notebooks.third.title)
+      end
     end
   end
 
