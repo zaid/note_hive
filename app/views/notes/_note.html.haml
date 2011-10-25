@@ -1,0 +1,11 @@
+%tr
+  %td.note
+    %span.content= make_title(note.content)
+    %span.timestamp= "Last updated #{time_ago_in_words(note.updated_at)} ago."
+  %td.action
+    = link_to 'show', notebook_note_path(notebook, note), :class => 'right'
+  %td.action
+    = link_to 'edit', edit_notebook_note_path(notebook, note), :class => 'right'
+  %td.action
+    = link_to 'delete', notebook_note_path(notebook, note), :method => :delete,
+                                :confirm => 'You sure?', :class => 'right delete'

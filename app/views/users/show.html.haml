@@ -1,0 +1,17 @@
+%table.profile{ :summary => 'Profile information' }
+  %tr
+    %td.main
+      %h2= @user.name
+    %td.sidebar.round
+      %strong Name:
+      = @user.name
+      %br/
+      %strong>Email:
+      = @user.email
+      %br/
+      %strong>URL:
+      = link_to user_path(@user)
+= link_to 'Edit profile', edit_user_path(@user)
+= link_to 'Delete account', user_path(@user), :method => :delete,
+                                                :confirm => 'You sure?',
+                                                :class => 'right delete'

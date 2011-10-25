@@ -34,6 +34,7 @@ gem 'redcarpet'
 gem 'acts-as-taggable-on'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'ransack'
+gem 'haml'
 
 # Use unicorn as the web server
 # gem 'unicorn'

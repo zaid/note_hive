@@ -1,0 +1,16 @@
+!!! 5
+!!!
+%html
+  %head
+    %title= title
+    = csrf_meta_tags
+    = javascript_include_tag "application"
+    = render 'layouts/stylesheets'
+  %body
+    .container
+      = render 'layouts/header'
+      %section.round
+        - flash.each do |key, value|
+          %div{:class => "flash #{key}"}= value
+        = yield
+      = render 'layouts/footer'

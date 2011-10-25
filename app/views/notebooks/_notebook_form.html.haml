@@ -1,0 +1,10 @@
+= form_for notebook do |f|
+  = render 'shared/error_messages', :object => f.object
+  .field
+    = f.label :title
+    = f.text_field :title, :size => 80
+  .field
+    = f.label 'Tags'
+    = f.text_field :tag_list
+  .actions
+    = f.submit

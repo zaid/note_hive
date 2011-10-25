@@ -1,0 +1,14 @@
+%h2= @notebook.title
+%p
+  %strong Tags
+  - @notebook.tags.each do |tag|
+    = render 'tags/tag', :tag => tag.name
+%span.left= link_to 'new note', new_notebook_note_path(@notebook)
+%span.right= link_to 'edit', edit_notebook_path(@notebook)
+%span.clear.right
+  = search_form_for @search, :remote => true, :url => notebook_path(@notebook) do |f|
+    = f.text_field :content_cont
+    = f.submit
+%span.paginator= paginate @notes, :remote => true
+%table.notes{ :summary => 'User notes' }
+  = render @notes, :notebook => @notebook

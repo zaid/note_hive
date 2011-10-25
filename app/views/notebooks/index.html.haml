@@ -1,0 +1,9 @@
+%h2 Notebooks
+%span.left= link_to 'new notebook', new_notebook_path
+%span.right
+  = search_form_for @search, :remote => true do |f|
+    = f.text_field :notes_content_or_title_cont
+    = f.submit
+%span.paginator= paginate @notebooks, :remote => true
+%table.notebooks{ :summary => 'User notebooks'}
+  = render @notebooks

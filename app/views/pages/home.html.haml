@@ -1,0 +1,8 @@
+%h2 NoteHive
+- if signed_in?
+  %p
+    To create new notebooks and notes, click on the 'Notebooks' button at
+    the top navigation menu.
+- else 
+  %p This is the home page for the NoteHive application.
+  = link_to 'Sign up now!', signup_path, :class => 'signup_button round'

@@ -1,0 +1,9 @@
+= form_for [notebook, note] do |f|
+  = render 'shared/error_messages', :object => f.object
+  .field
+    = f.text_area :content, :class => 'note_content_textarea'
+  .field
+    = f.label 'Tags'
+    = f.text_field :tag_list, :size => '150'
+  .actions
+    = f.submit

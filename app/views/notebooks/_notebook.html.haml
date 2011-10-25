@@ -1,0 +1,12 @@
+%tr
+  %td.notebook
+    %span.content= notebook.title
+    %span.timestamp= "Last updated #{time_ago_in_words(notebook.updated_at)} ago."
+  %td.action
+    = link_to 'show', notebook, :class => 'right'
+  %td.action
+    = link_to 'edit', edit_notebook_path(notebook), :class => 'right'
+  %td.action
+    = link_to 'delete', notebook, :method => :delete, 
+                                    :confirm => 'You sure?',
+                                    :title => notebook.title, :class => 'right delete'

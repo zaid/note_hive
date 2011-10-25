@@ -1,9 +1,0 @@
-<% if @tags.empty? %>
-  <p>You don't have any tagged items yet.</p>
-<% else %>
-  <div class='tags'>
-    <% tag_cloud(@tags, ['css1', 'css2', 'css3', 'css4']) do |tag, css_class| %>
-      <%= link_to tag.name, { :action => :show, :id => tag.name }, :class => css_class %>
-    <% end %>
-  </div>
-<% end %>

@@ -1,0 +1,14 @@
+%h2 Sign in
+
+= form_tag sessions_path do
+  .field
+    = label_tag :email
+    = text_field_tag :email, params[:email]
+  .field
+    = label_tag :password
+    = password_field_tag :password
+  .actions= submit_tag 'Log in'
+%p
+  %br/
+  New user?
+  = link_to 'Sign up', signup_path

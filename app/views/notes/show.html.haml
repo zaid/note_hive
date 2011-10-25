@@ -1,0 +1,8 @@
+.note_navigation
+  %span.left= link_to 'back to notebook', notebook_path(@note.notebook)
+  %span.right= link_to 'edit', edit_notebook_note_path(@notebook, @note)
+%p
+  %strong Tags
+  - @note.tags.each do |tag|
+    = render 'tags/tag', :tag => tag.name
+.note= markdown(@note.content)

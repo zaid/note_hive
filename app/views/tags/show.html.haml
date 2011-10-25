@@ -1,0 +1,10 @@
+%h3= "Notebooks tagged with '#{@tag}'"
+%span.notebooks_paginator= paginate @notebooks, :param_name => :notebook_page, :remote => true
+%table.notebooks
+  = render @notebooks
+
+%h3= "Notes tagged with '#{@tag}'"
+%span.notes_paginator= paginate @notes, :param_name => :note_page, :remote => true
+%table.notes
+  - @notes.each do |note|
+    = render note, :notebook => note.notebook
