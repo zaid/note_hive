@@ -1,8 +1,6 @@
 class TagsController < ApplicationController
   before_filter :authenticate
 
-  include NotesHelper
-
   def index
     @title = 'Tag cloud'
     @tags = current_user.notebooks.tag_counts_on(:tags)

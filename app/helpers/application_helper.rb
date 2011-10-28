@@ -15,4 +15,9 @@ module ApplicationHelper
     options = [:hard_wrap, :filter_html, :autolink, :no_intraemphasis]
     Redcarpet.new(text, *options).to_html.html_safe
   end
+
+  def shorten_text(text, maximum_length = 70)
+    return "#{text[0..maximum_length]}..." unless text.length < maximum_length
+    text
+  end
 end

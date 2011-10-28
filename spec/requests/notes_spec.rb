@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'faker'
 
+include ApplicationHelper
+
 describe "Notes" do
   
   before(:each) do
@@ -80,7 +82,7 @@ describe "Notes" do
     it "should show a note listing" do
       visit notebook_path(@notebook)
       @notes.each do |note|
-        response.should have_selector('span.content', :content => controller.make_title(note.content))
+        response.should have_selector('span.content', :content => controller.shorten_text(note.content))
       end
     end
     

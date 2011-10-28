@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'faker'
 
+include ApplicationHelper
+
 describe TagsController do
   render_views
 
@@ -121,7 +123,7 @@ describe TagsController do
         get :show, :id => 'lorem'
 
         @notes[-4, 4].each do |note|
-          response.should have_selector('span.content', :content => controller.make_title(note.content))
+          response.should have_selector('span.content', :content => shorten_text(note.content))
         end
       end
       

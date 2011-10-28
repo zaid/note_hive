@@ -2,8 +2,6 @@ class NotebooksController < ApplicationController
   before_filter :authenticate
   before_filter :get_notebook, :only => [:show, :edit, :update, :destroy]
 
-  include NotesHelper
-
   respond_to :html, :js
 
   def new
