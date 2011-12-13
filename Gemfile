@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
+gem 'rails', '3.1.3'
 
 group :production do
   gem 'pg'
@@ -30,7 +30,7 @@ end
 
 gem 'jquery-rails'
 gem 'kaminari'
-gem 'redcarpet'
+gem 'redcarpet', "< 2.0.0"
 gem 'acts-as-taggable-on'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'ransack'
