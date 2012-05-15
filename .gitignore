@@ -6,3 +6,4 @@ tmp/
 bin/
 webrat.log
 *.swp
+.rbenv-version
