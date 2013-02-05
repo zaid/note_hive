@@ -1,4 +1,4 @@
-# Note Hive
+# Note Hive [![Code Climate](https://codeclimate.com/github/zaid/note_hive.png)](https://codeclimate.com/github/zaid/note_hive)
 A simple note management application with support for searching and tagging.
 
 # Demo
